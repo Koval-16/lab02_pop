@@ -7,13 +7,10 @@ public class Tower {
     ArrayList<Layer> layers;
     ArrayList<Bucket> buckets;
     private double top_radius;
-    private ArrayList<Integer> sand_in_buckets;
+    private ArrayList<Double> sand_in_buckets;
+    Score score;
 
-    // warstwa nie moze byc dodana jeżeli:
-    // - wysypana warstwa nie zmieści sie
-    // - juz wykorzystane zostalo wiaderko
-
-    public Tower(Space space, ArrayList<Bucket> buckets, int index){
+    public Tower(Space space, ArrayList<Bucket> buckets, int index, double portion){
         this.space = space;
         layers = new ArrayList<>();
         this.buckets = buckets;
@@ -23,36 +20,34 @@ public class Tower {
             sand_in_buckets.add(buckets.get(i).getMax_volume());
         }
         try{
-            add_layer(index);
+            add_layer(index, portion);
         } catch (IllegalArgumentException e){
             throw new IllegalArgumentException("ERR");
         }
+        score = new Score(1,0.015,layers,sand_in_buckets);
     }
 
-    public Tower(Tower tower, int index){
+    public Tower(Tower tower, int index, double portion){
         this.space = tower.space;
-        //this.layers = tower.layers;
         this.layers = new ArrayList<>(tower.layers);
-        /*for (Layer layer : tower.layers) {
-            this.layers.add(new Layer(layer.getBucket(), 1, layer.getR()));
-        }*/
         this.buckets = tower.buckets;
         this.top_radius = tower.top_radius;
         //this.sand_in_buckets = tower.sand_in_buckets;
         this.sand_in_buckets = new ArrayList<>(tower.sand_in_buckets);
         try{
-            add_layer(index);
+            add_layer(index, portion);
         } catch (IllegalArgumentException e){
             throw new IllegalArgumentException("ERR");
         }
+        score = new Score(1,0.015,layers,sand_in_buckets);
     }
 
-    private void add_layer(int index){
-        if(sand_in_buckets.get(index)>=1){
+    private void add_layer(int index, double portion){
+        if(sand_in_buckets.get(index)>=portion){
             try{
-                Layer layer = new Layer(buckets.get(index), 1, top_radius);
+                Layer layer = new Layer(buckets.get(index), portion, top_radius);
                 layers.add(layer);
-                sand_in_buckets.set(index, sand_in_buckets.get(index)-1);
+                sand_in_buckets.set(index, sand_in_buckets.get(index)-portion);
                 top_radius = layer.getR();
             } catch (IllegalArgumentException e){
                 throw new IllegalArgumentException("ERR");

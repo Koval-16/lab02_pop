@@ -17,13 +17,13 @@ public class TowerList {
                 towers.get(space.getId()).add(new ArrayList<>());
                 if(i==0) for(int n=0; n<buckets.size(); n++){
                     try{
-                        Tower tower = new Tower(space,buckets,n);
+                        Tower tower = new Tower(space,buckets,n, portion);
                         towers.get(space.getId()).get(i).add(tower);
                     } catch (IllegalArgumentException e){}
                 }
                 else for(int n=0; n<buckets.size(); n++) for(int m=0; m<towers.get(space.getId()).get(i-1).size(); m++){
                     try {
-                        Tower tower = new Tower(towers.get(space.getId()).get(i-1).get(m), n);
+                        Tower tower = new Tower(towers.get(space.getId()).get(i-1).get(m), n, portion);
                         towers.get(space.getId()).get(i).add(tower);
                     } catch (IllegalArgumentException e) {}
                     /*for(int t=0; t<towers.get(space.getId()).get(i).size(); t++){
@@ -45,7 +45,7 @@ public class TowerList {
                     for(int l=0; l<towers.get(i).get(j).get(k).getLayers().size(); l++){
                         System.out.print(towers.get(i).get(j).get(k).getLayers().get(l).getBucket().getId());
                     }
-                    System.out.println();
+                    System.out.println(" "+towers.get(i).get(j).get(k).score.getScore());
                 }
             }
         }

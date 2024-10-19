@@ -29,4 +29,8 @@ public class Layer {
     public Bucket getBucket(){
         return bucket;
     }
+
+    public double getHeight() {
+        return height;
+    }
 }
