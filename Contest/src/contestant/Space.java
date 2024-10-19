@@ -2,17 +2,21 @@ package contestant;
 
 public class Space {
     private int id;
-    private int max_radius;
-    private double surface;
-    private int radius;
+    private double max_radius;
 
-    public Space(int id, int max_radius){
+    public Space(int id, double max_radius){
         this.id = id;
         this.max_radius = max_radius;
-        this.surface = Math.PI*Math.pow(radius,2);
     }
 
-    public int getRadius() {
+
+
+    public double getMax_radius(){
         return max_radius;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }

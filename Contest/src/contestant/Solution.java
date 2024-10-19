@@ -3,27 +3,22 @@ package contestant;
 import java.util.ArrayList;
 
 public class Solution {
-    ArrayList<Bucket> buckets;
-    ArrayList<Space> spaces;
-    ArrayList<Layer> layers;
     double total_height;
     double remaining_volume;
+    double wage_1;
+    double wage_2;
     double score;
 
-    public Solution(ArrayList<Bucket> buckets, ArrayList<Space> spaces){
-        this.buckets = buckets;
-        this.spaces = spaces;
-        layers = new ArrayList<>();
+    public Solution(double wage_1, double wage_2){
+        this.wage_1 = wage_1;
+        this.wage_2 = wage_2;
         total_height = 0;
         remaining_volume = 0;
-        for(Bucket bucket : buckets){
-            remaining_volume += bucket.getMax_volume();
-        }
     }
 
 
 
     public void calculate_score(){
-        score = total_height+remaining_volume;
+        score = (wage_1*total_height)+(wage_2*remaining_volume);
     }
 }

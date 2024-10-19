@@ -1,24 +1,32 @@
 package contestant;
 
 public class Layer {
-    private int space_id;
-    private int floor_id;
+    private Bucket bucket;
     private double volume;
-    private int angle;
     private double R;
     private double r;
     private double height;
 
-    public Layer(int space_id, int floor_id, double volume, int angle, double R){
-        this.space_id = space_id;
-        this.floor_id = floor_id;
+    public Layer(Bucket bucket, double volume, double R){
+        this.bucket = bucket;
         this.volume = volume;
-        this.angle = angle;
         this.R = R;
+        calculate();
+        if(r<0){
+            throw new IllegalArgumentException("ERR");
+        }
     }
 
     public void calculate(){
-        r = Math.cbrt(Math.pow(R,3)-((3*volume*Math.tan(Math.toRadians(15)))/Math.PI));
-        height = (R - r)/Math.tan(Math.toRadians(15));
+        r = Math.cbrt(Math.pow(R,3)-((3*volume*Math.tan(Math.toRadians(bucket.getAngle())))/Math.PI));
+        height = (R - r)/Math.tan(Math.toRadians(bucket.getAngle()));
+    }
+
+    public double getR(){
+        return r;
+    }
+
+    public Bucket getBucket(){
+        return bucket;
     }
 }

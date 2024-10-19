@@ -18,4 +18,10 @@ public class Bucket {
     public int getMax_volume() {
         return max_volume;
     }
+
+
+
+    public int getId(){
+        return id;
+    }
 }
