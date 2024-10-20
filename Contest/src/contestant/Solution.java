@@ -3,22 +3,27 @@ package contestant;
 import java.util.ArrayList;
 
 public class Solution {
-    double total_height;
-    double remaining_volume;
-    double wage_1;
-    double wage_2;
     double score;
+    ArrayList<Tower> chosen_towers;
 
-    public Solution(double wage_1, double wage_2){
-        this.wage_1 = wage_1;
-        this.wage_2 = wage_2;
-        total_height = 0;
-        remaining_volume = 0;
+    public Solution(ArrayList<Tower> chosen_towers){
+        this.chosen_towers = chosen_towers;
+        calculate_score();
     }
 
+    private void calculate_score(){
+        for(Tower tower : chosen_towers){
+            score += tower.score.getScore();
+        }
+    }
 
-
-    public void calculate_score(){
-        score = (wage_1*total_height)+(wage_2*remaining_volume);
+    public void print_solution(){
+        for(int i=0; i<chosen_towers.size(); i++){
+            System.out.print("Miejsce "+i+": ");
+            for(int j=0; j<chosen_towers.get(i).getLayers().size(); j++){
+                System.out.print(chosen_towers.get(i).getLayers().get(j).getBucket().getId());
+            }
+            System.out.println();
+        }
     }
 }

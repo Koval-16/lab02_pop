@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class Reader {
 
-    public static ArrayList<Bucket> read_buckets(String file_name) throws Exception{
+    public static ArrayList<Bucket> read_buckets(String file_name, double portion) throws Exception{
         ArrayList<Bucket> buckets = new ArrayList<>();
         File file = new File(file_name);
         Scanner scanner = new Scanner(file);
         while(scanner.hasNextLine()){
-            buckets.add(new Bucket(scanner.nextInt(), scanner.nextInt(), scanner.nextInt()));
+            buckets.add(new Bucket(scanner.nextInt(), scanner.nextInt(), scanner.nextInt(), portion));
         }
         return buckets;
     }

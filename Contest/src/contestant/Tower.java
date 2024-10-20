@@ -32,7 +32,6 @@ public class Tower {
         this.layers = new ArrayList<>(tower.layers);
         this.buckets = tower.buckets;
         this.top_radius = tower.top_radius;
-        //this.sand_in_buckets = tower.sand_in_buckets;
         this.sand_in_buckets = new ArrayList<>(tower.sand_in_buckets);
         try{
             add_layer(index, portion);

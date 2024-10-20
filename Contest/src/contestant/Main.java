@@ -7,13 +7,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String args[]) throws Exception{
         double portion = 500;
-        ArrayList<Bucket> buckets = Reader.read_buckets("buckets.txt");
+        ArrayList<Bucket> buckets = Reader.read_buckets("buckets.txt",portion);
         ArrayList<Space> spaces = Reader.read_spaces("spaces.txt");
         TowerList towerList = new TowerList();
         towerList.build_towers(spaces,buckets,portion);
-        Solution best_solution;
-        //double wage_1 = 0.75;
-        //double wage_2 = 0.25;
-
+        Algorithm algorithm = new Algorithm(towerList,buckets);
+        algorithm.best_solution.print_solution();
     }
 }

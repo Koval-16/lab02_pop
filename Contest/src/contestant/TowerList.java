@@ -26,18 +26,10 @@ public class TowerList {
                         Tower tower = new Tower(towers.get(space.getId()).get(i-1).get(m), n, portion);
                         towers.get(space.getId()).get(i).add(tower);
                     } catch (IllegalArgumentException e) {}
-                    /*for(int t=0; t<towers.get(space.getId()).get(i).size(); t++){
-                        for(int x=0; x<towers.get(space.getId()).get(i).get(t).getLayers().size(); x++){
-                            System.out.print(towers.get(space.getId()).get(i).get(t).getLayers().get(x).getBucket().getId());
-                        }
-                        System.out.println();
-                    }*/
                 }
 
             }
         }
-
-        // here ends actual code, but I want to check what have I done XDD
 
         for(int i=0; i<towers.size(); i++){
             for(int j=0; j<towers.get(i).size(); j++){
