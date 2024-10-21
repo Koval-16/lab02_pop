@@ -3,8 +3,8 @@ package contestant;
 import java.util.ArrayList;
 
 public class Solution {
-    double score;
-    ArrayList<Tower> chosen_towers;
+    private double score;
+    private ArrayList<Tower> chosen_towers;
 
     public Solution(ArrayList<Tower> chosen_towers){
         this.chosen_towers = chosen_towers;
@@ -13,7 +13,7 @@ public class Solution {
 
     private void calculate_score(){
         for(Tower tower : chosen_towers){
-            score += tower.score.getScore();
+            score += tower.getScore().getScore();
         }
     }
 
@@ -25,5 +25,9 @@ public class Solution {
             }
             System.out.println();
         }
+    }
+
+    public double getScore() {
+        return score;
     }
 }

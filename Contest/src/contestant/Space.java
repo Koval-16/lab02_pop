@@ -9,8 +9,6 @@ public class Space {
         this.max_radius = max_radius;
     }
 
-
-
     public double getMax_radius(){
         return max_radius;
     }

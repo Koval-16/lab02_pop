@@ -12,6 +12,6 @@ public class Main {
         TowerList towerList = new TowerList();
         towerList.build_towers(spaces,buckets,portion);
         Algorithm algorithm = new Algorithm(towerList,buckets);
-        algorithm.best_solution.print_solution();
+        algorithm.getBest_solution().print_solution();
     }
 }

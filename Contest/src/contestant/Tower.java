@@ -3,12 +3,12 @@ package contestant;
 import java.util.ArrayList;
 
 public class Tower {
-    Space space;
-    ArrayList<Layer> layers;
-    ArrayList<Bucket> buckets;
+    private Space space;
+    private ArrayList<Layer> layers;
+    private ArrayList<Bucket> buckets;
     private double top_radius;
     private ArrayList<Double> sand_in_buckets;
-    Score score;
+    private Score score;
 
     public Tower(Space space, ArrayList<Bucket> buckets, int index, double portion){
         this.space = space;
@@ -59,5 +59,9 @@ public class Tower {
 
     public ArrayList<Layer> getLayers(){
         return layers;
+    }
+
+    public Score getScore() {
+        return score;
     }
 }

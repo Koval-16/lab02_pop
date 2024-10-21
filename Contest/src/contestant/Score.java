@@ -9,7 +9,7 @@ public class Score {
         score = calculate_score(wage_1,wage_2,calculate_height(layers),calculate_remaining_vol(sand));
     }
 
-    public double calculate_remaining_vol(ArrayList<Double> sand_remained){
+    private double calculate_remaining_vol(ArrayList<Double> sand_remained){
         double remained_volume = 0;
         for(Double sand : sand_remained){
             remained_volume += sand;
@@ -17,7 +17,7 @@ public class Score {
         return remained_volume;
     }
 
-    public double calculate_height(ArrayList<Layer> layers){
+    private double calculate_height(ArrayList<Layer> layers){
         double height = 0;
         for(Layer layer : layers){
             height += layer.getHeight();
@@ -25,7 +25,7 @@ public class Score {
         return height;
     }
 
-    public double calculate_score(double wage_1, double wage_2, double height, double volume){
+    private double calculate_score(double wage_1, double wage_2, double height, double volume){
         return (wage_1*height)+(wage_2*volume);
     }
 
