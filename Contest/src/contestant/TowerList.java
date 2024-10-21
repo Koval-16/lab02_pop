@@ -18,6 +18,16 @@ public class TowerList {
                 else more_layer_tower(space, i, buckets, portion);
             }
         }
+        for(int i=0; i<towers.size(); i++){
+            for(int j=0; j<towers.get(i).size(); j++){
+                for(int k=0; k<towers.get(i).get(j).size(); k++){
+                    for(int l=0; l<towers.get(i).get(j).get(k).getLayers().size(); l++){
+                        System.out.print(towers.get(i).get(j).get(k).getLayers().get(l).getBucket().getId());
+                    }
+                    System.out.println(" "+towers.get(i).get(j).get(k).getScore().getHeight());
+                }
+            }
+        }
     }
 
     private double calculate_max_layers(ArrayList<Bucket> buckets){

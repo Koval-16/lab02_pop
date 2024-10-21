@@ -24,7 +24,7 @@ public class Tower {
         } catch (IllegalArgumentException e){
             throw new IllegalArgumentException("ERR");
         }
-        score = new Score(1,0.015,layers,sand_in_buckets);
+        score = new Score(layers,sand_in_buckets);
     }
 
     public Tower(Tower tower, int index, double portion){
@@ -38,7 +38,7 @@ public class Tower {
         } catch (IllegalArgumentException e){
             throw new IllegalArgumentException("ERR");
         }
-        score = new Score(1,0.015,layers,sand_in_buckets);
+        score = new Score(layers,sand_in_buckets);
     }
 
     private void add_layer(int index, double portion){

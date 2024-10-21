@@ -8,10 +8,10 @@ public class Algorithm {
     private ArrayList<ArrayList<Tower>> optimal_towers = new ArrayList<>();
     private Solution best_solution;
 
-    public Algorithm(TowerList list, ArrayList<Bucket> buckets){
+    public Algorithm(TowerList list, ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
         this.list = list;
         choose_optimal_towers();
-        search_best_solution(buckets);
+        search_best_solution(buckets, portion, wage_1, wage_2);
     }
 
     private void choose_optimal_towers(){
@@ -22,17 +22,18 @@ public class Algorithm {
                 for(int k=0; k<list.getTowers().get(i).get(j).size(); k++){
                     if(k==0) best = list.getTowers().get(i).get(j).get(k);
                     else{
-                        if(list.getTowers().get(i).get(j).get(k).getScore().getScore()>best.getScore().getScore()){
+                        if(list.getTowers().get(i).get(j).get(k).getScore().getHeight()>best.getScore().getHeight()){
                             best = list.getTowers().get(i).get(j).get(k);
                         }
                     }
                 }
                 if(best!=null) optimal_towers.get(i).add(best);
+                if(best!=null) System.out.println(best.getScore().getHeight());
             }
         }
     }
 
-    private void search_best_solution(ArrayList<Bucket> buckets){
+    private void search_best_solution(ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
         int combinations = 1;
         for(int i=0; i<optimal_towers.size(); i++){
             combinations *= optimal_towers.get(i).size();
@@ -45,7 +46,7 @@ public class Algorithm {
                 current_combination.add(optimal_towers.get(j).get(index));
                 current /= optimal_towers.get(j).size();
             }
-            if(is_valid(current_combination,buckets)) compare_solutions(current_combination);
+            if(is_valid(current_combination,buckets)) compare_solutions(current_combination, portion, buckets, wage_1, wage_2);
         }
     }
 
@@ -60,8 +61,8 @@ public class Algorithm {
         return is_valid;
     }
 
-    private void compare_solutions(ArrayList<Tower> current_combination){
-        Solution current_solution = new Solution(current_combination);
+    private void compare_solutions(ArrayList<Tower> current_combination, double portion, ArrayList<Bucket> buckets, double wage_1, double wage_2){
+        Solution current_solution = new Solution(current_combination, portion, buckets, wage_1, wage_2);
         if (best_solution == null || current_solution.getScore() > best_solution.getScore()) {
             best_solution = current_solution;
         }
