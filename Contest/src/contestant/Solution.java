@@ -25,9 +25,6 @@ public class Solution {
         }
         double sand_remained = sand_full-towers_volume;
         score = (wage_1*height)+(wage_2*sand_remained);
-        System.out.println("HEIGHT: "+height);
-        System.out.println("VOL: "+sand_remained);
-        System.out.println("SCORE: "+score);
     }
 
     public void print_solution(){

@@ -11,6 +11,7 @@ public class Main {
         double wage_2 = 0.01;
         ArrayList<Bucket> buckets = Reader.read_buckets("buckets.txt",portion);
         ArrayList<Space> spaces = Reader.read_spaces("spaces.txt");
+        for(Bucket bucket : buckets) bucket.calculate_consequences(spaces.size());
         TowerList towerList = new TowerList();
         towerList.build_towers(spaces,buckets,portion);
         Algorithm algorithm = new Algorithm(towerList,buckets, portion, wage_1, wage_2);

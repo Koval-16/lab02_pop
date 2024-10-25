@@ -5,6 +5,7 @@ public class Bucket {
     private int angle;
     private double max_volume;
     private double max_layers;
+    private double consequences;
 
     public Bucket(int id, int angle, double max_volume, double portion){
         this.id = id;
@@ -21,7 +22,14 @@ public class Bucket {
         return max_volume;
     }
 
+    public void calculate_consequences(int spaces){
+        consequences = Math.ceil(max_layers/spaces);
+        System.out.println(id+": "+consequences);
+    }
 
+    public double getConsequences(){
+        return consequences;
+    }
 
     public int getId(){
         return id;

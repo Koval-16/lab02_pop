@@ -14,6 +14,22 @@ public class Algorithm {
         search_best_solution(buckets, portion, wage_1, wage_2);
     }
 
+    /*private void choose_optimal_towers() {
+        int numOptimalTowers = 5;  // Liczba wież do wyboru z każdej grupy
+        for (int i = 0; i < list.getTowers().size(); i++) {
+            optimal_towers.add(new ArrayList<>());
+            for (int j = 0; j < list.getTowers().get(i).size(); j++) {
+                ArrayList<Tower> towersAtLayer = list.getTowers().get(i).get(j);
+                towersAtLayer.sort((t1, t2) -> Double.compare(t2.getScore().getHeight(), t1.getScore().getHeight()));
+
+                // Wybieramy `numOptimalTowers` najlepszych wież z tej grupy
+                for (int k = 0; k < Math.min(numOptimalTowers, towersAtLayer.size()); k++) {
+                    optimal_towers.get(i).add(towersAtLayer.get(k));
+                }
+            }
+        }
+    }*/
+
     private void choose_optimal_towers(){
         for(int i=0; i<list.getTowers().size(); i++){
             optimal_towers.add(new ArrayList<>());
@@ -33,11 +49,13 @@ public class Algorithm {
         }
     }
 
+
     private void search_best_solution(ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
         int combinations = 1;
         for(int i=0; i<optimal_towers.size(); i++){
             combinations *= optimal_towers.get(i).size();
         }
+        System.out.println("Combinations: "+combinations);
         for(int i=0; i<combinations; i++){
             ArrayList<Tower> current_combination = new ArrayList<>();
             int current = i;
@@ -58,6 +76,7 @@ public class Algorithm {
         for(int m=0; m<max_layers.length; m++){
             if(max_layers[m]<0) is_valid=false;
         }
+        if(is_valid) System.out.println(is_valid);
         return is_valid;
     }
 
