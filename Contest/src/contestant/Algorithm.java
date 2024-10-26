@@ -13,9 +13,9 @@ public class Algorithm {
     public Algorithm(TowerList list, ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
         this.list = list;
         choose_optimal_towers(wage_1, wage_2);
-        choose_height_optimal();
+        //choose_height_optimal();
         search_best_solution(optimal_towers,buckets, portion, wage_1, wage_2);
-        search_solutions_expanded(buckets, portion, wage_1, wage_2);
+        //search_solutions_expanded(buckets, portion, wage_1, wage_2);
     }
 
     // wybiera optymalne wieże dla każdej grupy wież
@@ -38,11 +38,10 @@ public class Algorithm {
                 }
             }
         }
-        choose_optimal_heights();
+        //choose_optimal_heights();
     }
 
-    // wybiera najlepsze grupy wież
-    private void choose_optimal_heights() {
+    /*private void choose_optimal_heights() {
         for (ArrayList<Tower> towersGroup : optimal_towers) {
             for (int i = 0; i < towersGroup.size() - 1; i++) {
                 for (int j = i + 1; j < towersGroup.size(); j++) {
@@ -55,9 +54,9 @@ public class Algorithm {
                 }
             }
         }
-    }
+    }*/
 
-    // sprawdza kilka innych losowych rozwiązań z najbardziej optymalnych grup wież
+    /*
     private void choose_height_optimal(){
         int numOptimalTowers = 5;
         for (int i = 0; i <optimal_towers.size(); i++) {
@@ -80,7 +79,7 @@ public class Algorithm {
                 }
             }
         }
-    }
+    }*/
 
     // szuka najlepszego rozwiązania
     private void search_best_solution(ArrayList<ArrayList<Tower>> optimal,ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
@@ -99,7 +98,7 @@ public class Algorithm {
     }
 
 
-    // sprawdza czy dane rozwiązanie jest poprawne
+    /*
     private void search_solutions_expanded(ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
         Random random = new Random();
         for(int i=0; i<100; i++){
@@ -110,7 +109,7 @@ public class Algorithm {
             if(is_valid(current_combination,buckets)) compare_solutions(current_combination, portion, buckets, wage_1, wage_2);
 
         }
-    }
+    }*/
 
     // sprawdza czy wybrane rozwiązanie jest poprawne
     private boolean is_valid(ArrayList<Tower> current_combination, ArrayList<Bucket> buckets){

@@ -83,7 +83,6 @@ public class TowerList {
                 }
             }
         }
-
         if (towersAtLayer.size() > MAX_TOWERS) {
             for (int i = 0; i < towersAtLayer.size(); i++) {
                 for (int j = i + 1; j < towersAtLayer.size(); j++) {
@@ -108,27 +107,17 @@ public class TowerList {
 
     private void algorithm_1(Tower tower1, Tower tower2, int[] lay1, int[] lay2, ArrayList<Tower> towers){
         boolean the_same = true;
-        for(int i=0; i<lay1.length; i++) if(lay1[i]!=lay2[i]){
-            the_same = false;
-        }
+        for(int i=0; i<lay1.length; i++) if(lay1[i]!=lay2[i]) the_same = false;
         if(the_same){
-            if(tower1.getScore().getHeight()>=tower2.getScore().getHeight()){
-                towers.remove(tower2);
-            }
-            else{
-                towers.remove(tower1);
-            }
+            if(tower1.getScore().getHeight()>=tower2.getScore().getHeight()) towers.remove(tower2);
+            else towers.remove(tower1);
         }
     }
 
     private void algorithm_2(Tower tower1, Tower tower2, int[] lay1, int[] lay2, ArrayList<Tower> towers, int index){
         if(lay1[index] == lay2[index]){
-            if(tower1.getScore().getHeight()>=tower2.getScore().getHeight()){
-                towers.remove(tower2);
-            }
-            else{
-                towers.remove(tower1);
-            }
+            if(tower1.getScore().getHeight()>=tower2.getScore().getHeight()) towers.remove(tower2);
+            else towers.remove(tower1);
         }
     }
 

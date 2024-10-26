@@ -28,10 +28,11 @@ public class Solution {
     }
 
     public void print_solution(){
+        System.out.println("Liczba oznacza wiadro z którego usypano daną warstwę");
         for(int i=0; i<chosen_towers.size(); i++){
             System.out.print("Miejsce "+i+": ");
             for(int j=0; j<chosen_towers.get(i).getLayers().size(); j++){
-                System.out.print(chosen_towers.get(i).getLayers().get(j).getBucket().getId());
+                System.out.print(chosen_towers.get(i).getLayers().get(j).getBucket().getId()+"|");
             }
             System.out.println(", "+chosen_towers.get(i).getScore().getHeight());
         }
