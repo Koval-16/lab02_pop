@@ -33,7 +33,7 @@ public class Solution {
             for(int j=0; j<chosen_towers.get(i).getLayers().size(); j++){
                 System.out.print(chosen_towers.get(i).getLayers().get(j).getBucket().getId());
             }
-            System.out.println();
+            System.out.println(", "+chosen_towers.get(i).getScore().getHeight());
         }
     }
 

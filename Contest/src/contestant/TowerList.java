@@ -19,17 +19,6 @@ public class TowerList {
                 else more_layer_tower(space, i, buckets, portion);
             }
         }
-
-        for(int i=0; i<towers.size(); i++){
-            for(int j=0; j<towers.get(i).size(); j++){
-                for(int k=0; k<towers.get(i).get(j).size(); k++){
-                    for(int l=0; l<towers.get(i).get(j).get(k).getLayers().size(); l++){
-                        System.out.print(towers.get(i).get(j).get(k).getLayers().get(l).getBucket().getId());
-                    }
-                    System.out.println(" "+towers.get(i).get(j).get(k).getScore().getHeight());
-                }
-            }
-        }
     }
 
     private double calculate_max_layers(ArrayList<Bucket> buckets){
@@ -61,7 +50,6 @@ public class TowerList {
     }
 
     private void decrease_layers(int spaceId, int layerIndex, ArrayList<Bucket> buckets) {
-        // Pobieramy listę wież dla danego miejsca i warstwy
         ArrayList<Tower> towersAtLayer = towers.get(spaceId).get(layerIndex);
 
         for(int i=0; i<towersAtLayer.size(); i++){
@@ -96,24 +84,17 @@ public class TowerList {
             }
         }
 
-        // Sprawdzamy, czy liczba wież przekracza maksymalną wartość
         if (towersAtLayer.size() > MAX_TOWERS) {
-            // Używamy klasycznego sortowania z wykorzystaniem Comparatora
             for (int i = 0; i < towersAtLayer.size(); i++) {
                 for (int j = i + 1; j < towersAtLayer.size(); j++) {
-                    // Pobieramy wieże z listy
                     Tower tower1 = towersAtLayer.get(i);
                     Tower tower2 = towersAtLayer.get(j);
-
-                    // Porównujemy wieże po ich wysokościach i zamieniamy, jeśli są w złej kolejności
                     if (tower1.getScore().getHeight() < tower2.getScore().getHeight()) {
                         towersAtLayer.set(i, tower2);
                         towersAtLayer.set(j, tower1);
                     }
                 }
             }
-
-            // Usuwamy wszystkie wieże poza pierwszymi MAX_TOWERS
             while (towersAtLayer.size() > MAX_TOWERS) {
                 towersAtLayer.remove(towersAtLayer.size() - 1);
             }

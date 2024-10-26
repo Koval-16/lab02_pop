@@ -17,6 +17,7 @@ public class Layer {
         }
     }
 
+    // oblicza wartości dla danej warstwy
     private void calculate(){
         r = Math.cbrt(Math.pow(R,3)-((3*volume*Math.tan(Math.toRadians(bucket.getAngle())))/Math.PI));
         height = (R - r)/Math.tan(Math.toRadians(bucket.getAngle()));

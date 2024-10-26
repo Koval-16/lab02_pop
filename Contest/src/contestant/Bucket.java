@@ -22,9 +22,9 @@ public class Bucket {
         return max_volume;
     }
 
+    // oblicza wartość "warstw bez konsekwencji dla budowania wież"
     public void calculate_consequences(int spaces){
         consequences = Math.floor(max_layers/spaces);
-        System.out.println(id+": "+consequences);
     }
 
     public double getConsequences(){
