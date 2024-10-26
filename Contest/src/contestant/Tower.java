@@ -42,6 +42,10 @@ public class Tower {
     }
 
     private void add_layer(int index, double portion){
+        double max = buckets.get(index).getConsequences()+1;
+        int layer_count = 0;
+        for(Layer layer : layers) if(layer.getBucket().getId()==index) layer_count++;
+        if(layer_count>=max) throw new IllegalArgumentException("ERR");
         if(sand_in_buckets.get(index)>=portion){
             try{
                 Layer layer = new Layer(buckets.get(index), portion, top_radius);

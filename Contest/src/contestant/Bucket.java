@@ -23,7 +23,7 @@ public class Bucket {
     }
 
     public void calculate_consequences(int spaces){
-        consequences = Math.ceil(max_layers/spaces);
+        consequences = Math.floor(max_layers/spaces);
         System.out.println(id+": "+consequences);
     }
 

@@ -5,9 +5,11 @@ import java.util.ArrayList;
 public class Score {
     private double score;
     private double height;
+    ArrayList<Double> sand;
 
     public Score(ArrayList<Layer> layers, ArrayList<Double> sand){
         height = calculate_height(layers);
+        this.sand = sand;
     }
 
     private double calculate_remaining_vol(ArrayList<Double> sand_remained){
@@ -26,8 +28,11 @@ public class Score {
         return height;
     }
 
-    private double calculate_score(double wage_1, double wage_2, double height, double volume){
-        return (wage_1*height)+(wage_2*volume);
+
+
+    public void calculate_score(double wage_1, double wage_2){
+        double volume = calculate_remaining_vol(sand);
+        score = (wage_1*height)+(wage_2*volume);
     }
 
     public double getScore() {

@@ -19,6 +19,7 @@ public class TowerList {
                 else more_layer_tower(space, i, buckets, portion);
             }
         }
+
         for(int i=0; i<towers.size(); i++){
             for(int j=0; j<towers.get(i).size(); j++){
                 for(int k=0; k<towers.get(i).get(j).size(); k++){
@@ -81,7 +82,6 @@ public class TowerList {
                         algorithm_2(tower1,tower2,lay_number,lay_number2,towersAtLayer,j);
                     }
                     alg = false;
-                    break;
                 }
             }
             if(alg){

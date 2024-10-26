@@ -1,17 +1,21 @@
 package contestant;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Algorithm {
 
     private TowerList list;
     private ArrayList<ArrayList<Tower>> optimal_towers = new ArrayList<>();
+    private ArrayList<ArrayList<Tower>> optimal_expanded = new ArrayList<>();
     private Solution best_solution;
 
     public Algorithm(TowerList list, ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
         this.list = list;
-        choose_optimal_towers();
-        search_best_solution(buckets, portion, wage_1, wage_2);
+        choose_optimal_towers(wage_1, wage_2);
+        choose_height_optimal();
+        search_best_solution(optimal_towers,buckets, portion, wage_1, wage_2);
+        search_solutions_expanded(buckets, portion, wage_1, wage_2);
     }
 
     /*private void choose_optimal_towers() {
@@ -30,7 +34,22 @@ public class Algorithm {
         }
     }*/
 
-    private void choose_optimal_towers(){
+    private void choose_height_optimal(){
+        int numOptimalTowers = 5;  // Liczba wież do wyboru z każdej grupy
+        for (int i = 0; i <optimal_towers.size(); i++) {
+            optimal_expanded.add(new ArrayList<>());
+            for(int j=0; j<Math.min(5, optimal_towers.get(i).size()); j++){
+                int index = optimal_towers.get(i).get(j).getLayers().size()-1;
+                ArrayList<Tower> towersAtLayer = list.getTowers().get(i).get(index);
+                towersAtLayer.sort((t1, t2) -> Double.compare(t2.getScore().getHeight(), t1.getScore().getHeight()));
+                for (int k = 0; k < Math.min(numOptimalTowers, towersAtLayer.size()); k++) {
+                    optimal_expanded.get(i).add(towersAtLayer.get(k));
+                }
+            }
+        }
+    }
+
+    private void choose_optimal_towers(double wage_1, double wage_2){
         for(int i=0; i<list.getTowers().size(); i++){
             optimal_towers.add(new ArrayList<>());
             for(int j=0; j<list.getTowers().get(i).size(); j++){
@@ -43,28 +62,62 @@ public class Algorithm {
                         }
                     }
                 }
-                if(best!=null) optimal_towers.get(i).add(best);
-                if(best!=null) System.out.println(best.getScore().getHeight());
+                if(best!=null){
+                    optimal_towers.get(i).add(best);
+                    best.getScore().calculate_score(wage_1, wage_2);
+                    System.out.println(best.getLayers().size()+" lsy X: "+best.getScore().getScore());
+                }
+            }
+        }
+        choose_optimal_heights();
+    }
+
+    private void choose_optimal_heights() {
+        // Dla każdej grupy wież w optimal_towers
+        for (ArrayList<Tower> towersGroup : optimal_towers) {
+            // Sortowanie wież w grupie według wyniku `score` malejąco
+            for (int i = 0; i < towersGroup.size() - 1; i++) {
+                for (int j = i + 1; j < towersGroup.size(); j++) {
+                    Tower tower1 = towersGroup.get(i);
+                    Tower tower2 = towersGroup.get(j);
+                    // Jeśli wynik tower2 jest większy, zamieniamy miejscami
+                    if (tower1.getScore().getScore() < tower2.getScore().getScore()) {
+                        towersGroup.set(i, tower2);
+                        towersGroup.set(j, tower1);
+                    }
+                }
             }
         }
     }
 
-
-    private void search_best_solution(ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
+    private void search_best_solution(ArrayList<ArrayList<Tower>> optimal,ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
         int combinations = 1;
-        for(int i=0; i<optimal_towers.size(); i++){
-            combinations *= optimal_towers.get(i).size();
+        for(int i=0; i<optimal.size(); i++){
+            System.out.println("Size of optimal_towers[" + i + "] = " + optimal.get(i).size());
+            combinations *= optimal.get(i).size();
         }
         System.out.println("Combinations: "+combinations);
         for(int i=0; i<combinations; i++){
             ArrayList<Tower> current_combination = new ArrayList<>();
             int current = i;
-            for(int j= 0; j< optimal_towers.size(); j++){
-                int index = current % optimal_towers.get(j).size();
-                current_combination.add(optimal_towers.get(j).get(index));
-                current /= optimal_towers.get(j).size();
+            for(int j= 0; j< optimal.size(); j++){
+                int index = current % optimal.get(j).size();
+                current_combination.add(optimal.get(j).get(index));
+                current /= optimal.get(j).size();
             }
             if(is_valid(current_combination,buckets)) compare_solutions(current_combination, portion, buckets, wage_1, wage_2);
+        }
+    }
+
+    private void search_solutions_expanded(ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
+        Random random = new Random();
+        for(int i=0; i<100; i++){
+            ArrayList<Tower> current_combination = new ArrayList<>();
+            for(int j=0; j<optimal_expanded.size(); j++){
+                current_combination.add(optimal_expanded.get(j).get(random.nextInt(optimal_expanded.get(j).size())));
+            }
+            if(is_valid(current_combination,buckets)) compare_solutions(current_combination, portion, buckets, wage_1, wage_2);
+
         }
     }
 
@@ -76,7 +129,6 @@ public class Algorithm {
         for(int m=0; m<max_layers.length; m++){
             if(max_layers[m]<0) is_valid=false;
         }
-        if(is_valid) System.out.println(is_valid);
         return is_valid;
     }
 
