@@ -7,15 +7,12 @@ public class Algorithm {
 
     private TowerList list;
     private ArrayList<ArrayList<Tower>> optimal_towers = new ArrayList<>();
-    private ArrayList<ArrayList<Tower>> optimal_expanded = new ArrayList<>();
     private Solution best_solution;
 
     public Algorithm(TowerList list, ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
         this.list = list;
         choose_optimal_towers(wage_1, wage_2);
-        //choose_height_optimal();
         search_best_solution(optimal_towers,buckets, portion, wage_1, wage_2);
-        //search_solutions_expanded(buckets, portion, wage_1, wage_2);
     }
 
     // wybiera optymalne wieże dla każdej grupy wież
@@ -38,48 +35,7 @@ public class Algorithm {
                 }
             }
         }
-        //choose_optimal_heights();
     }
-
-    /*private void choose_optimal_heights() {
-        for (ArrayList<Tower> towersGroup : optimal_towers) {
-            for (int i = 0; i < towersGroup.size() - 1; i++) {
-                for (int j = i + 1; j < towersGroup.size(); j++) {
-                    Tower tower1 = towersGroup.get(i);
-                    Tower tower2 = towersGroup.get(j);
-                    if (tower1.getScore().getScore() < tower2.getScore().getScore()) {
-                        towersGroup.set(i, tower2);
-                        towersGroup.set(j, tower1);
-                    }
-                }
-            }
-        }
-    }*/
-
-    /*
-    private void choose_height_optimal(){
-        int numOptimalTowers = 5;
-        for (int i = 0; i <optimal_towers.size(); i++) {
-            optimal_expanded.add(new ArrayList<>());
-            for(int j=0; j<Math.min(5, optimal_towers.get(i).size()); j++){
-                int index = optimal_towers.get(i).get(j).getLayers().size()-1;
-                ArrayList<Tower> towersAtLayer = list.getTowers().get(i).get(index);
-                for (int m=0; m<towersAtLayer.size()-1; m++) {
-                    for (int n=m+1; n<towersAtLayer.size(); n++) {
-                        Tower tower1 = towersAtLayer.get(m);
-                        Tower tower2 = towersAtLayer.get(n);
-                        if (tower1.getScore().getHeight() < tower2.getScore().getHeight()) {
-                            towersAtLayer.set(m, tower2);
-                            towersAtLayer.set(n, tower1);
-                        }
-                    }
-                }
-                for (int k = 0; k < Math.min(numOptimalTowers, towersAtLayer.size()); k++) {
-                    optimal_expanded.get(i).add(towersAtLayer.get(k));
-                }
-            }
-        }
-    }*/
 
     // szuka najlepszego rozwiązania
     private void search_best_solution(ArrayList<ArrayList<Tower>> optimal,ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
@@ -96,20 +52,6 @@ public class Algorithm {
             if(is_valid(current_combination,buckets)) compare_solutions(current_combination, portion, buckets, wage_1, wage_2);
         }
     }
-
-
-    /*
-    private void search_solutions_expanded(ArrayList<Bucket> buckets, double portion, double wage_1, double wage_2){
-        Random random = new Random();
-        for(int i=0; i<100; i++){
-            ArrayList<Tower> current_combination = new ArrayList<>();
-            for(int j=0; j<optimal_expanded.size(); j++){
-                current_combination.add(optimal_expanded.get(j).get(random.nextInt(optimal_expanded.get(j).size())));
-            }
-            if(is_valid(current_combination,buckets)) compare_solutions(current_combination, portion, buckets, wage_1, wage_2);
-
-        }
-    }*/
 
     // sprawdza czy wybrane rozwiązanie jest poprawne
     private boolean is_valid(ArrayList<Tower> current_combination, ArrayList<Bucket> buckets){

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Contest:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Contest_jar</output-path>
+    <root id="archive" name="Contest.jar">
+      <element id="module-output" name="Contest" />
+    </root>
+  </artifact>
+</component>
